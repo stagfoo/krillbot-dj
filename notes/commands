@@ -1,0 +1,7 @@
+ffmpeg -t 60.000 -f concat -i "layer1.txt" -c copy -t 60.000 "loops/layer1.mp3"
+ffmpeg -t 60.000 -f concat -i "layer2.txt" -c copy -t 60.000 "loops/layer2.mp3"
+ffmpeg -t 60.000 -f concat -i "layer3.txt" -c copy -t 60.000 "loops/layer3.mp3"
+ffmpeg -t 60.000 -f concat -i "layer4.txt" -c copy -t 60.000 "loops/layer4.mp3"
+
+ffmpeg -i loops/drum.mp3 -i loops/layer1.mp3 -i loops/layer2.mp3 -i loops/layer3.mp3  -i loops/layer4.mp3 -filter_complex amix=inputs=5:duration=longest output.mp3
+ffmpeg -y -i loops/layer1.mp3 -i loops/layer2.mp3 -i loops/drum.mp3 -filter_complex "[0:0][1:0] amix=inputs=3:duration=longest" -c:a libmp3lame outputnow.mp3
